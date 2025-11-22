@@ -1,0 +1,23 @@
+{
+  "id": "fused_softmax_dropout_v1",
+  "title": "Fused Softmax + Dropout Kernel (Triton)",
+  "description": "Implement a fused, numerically-stable softmax + dropout kernel in Triton.",
+  "entrypoint": "fused_softmax_dropout/kernels/fused_kernel.py",
+  "visible_files": [
+    "docs/prompt.txt",
+    "docs/specification.md",
+    "fused_softmax_dropout/kernels/fused_kernel.py",
+    "fused_softmax_dropout/utils/reference.py",
+    "fused_softmax_dropout/utils/seed_utils.py",
+    "tests/test_fused_kernel.py"
+  ],
+  "hidden_files": [
+    "gold/oracle_fused_kernel.py",
+    "gold/utils/reference.py"
+  ],
+  "tests_command": "PYTHONPATH=. pytest -q",
+  "timeout_seconds": 120,
+  "expected_pass_at_10": { "min": 0.10, "max": 0.40 },
+  "grading": "numerical_allclose",
+  "notes": "Agent must implement the Triton kernel in the visible entrypoint. Grader compares numeric outputs against the hidden reference."
+}

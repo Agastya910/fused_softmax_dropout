@@ -1,0 +1,15 @@
+## Task: Implement Fused Softmax + Dropout Kernel (Triton)
+
+You are an expert GPU kernel engineer. Implement a fused, numerically-stable softmax + dropout kernel in Triton and place your code into `kernels/fused_kernel.py` implementing:
+
+def fused_softmax_dropout(x: torch.Tensor, p: float, seed: int = 0) -> torch.Tensor
+
+Requirements:
+- Numerically stable softmax along the last dimension (subtract max before exp)
+- Deterministic seeded dropout (seed must control RNG)
+- Fully fused: do softmax and dropout inside a single kernel
+- Handle large seq_len (tiling)
+- Output must match PyTorch reference semantics exactly (tests compare numerically)
+
+You can inspect `tests/test_fused_kernel.py` for the required interface and behavior. Do NOT access files in `gold/`; those are hidden in the evaluation environment.
+
