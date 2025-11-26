@@ -2,7 +2,7 @@ import torch
 
 def fused_softmax_dropout(x: torch.Tensor, p: float, seed: int = 0) -> torch.Tensor:
     """
-    Implement a fused softmax + dropout kernel using Triton.
-    The LLM must replace this stub with a working implementation.
+    Implemented by the model (Triton kernel).
+    The LLM must replace this with a working fused softmax+dropout kernel.
     """
-    raise NotImplementedError("Triton kernel not implemented")
+    raise NotImplementedError("LLM must implement the Triton kernel here.")
