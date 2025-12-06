@@ -10,13 +10,14 @@ def fused_softmax_dropout(x: torch.Tensor, p: float, seed: float) -> torch.Tenso
         seed: Float seed.
         
     CRITICAL IMPLEMENTATION REQUIREMENTS:
-    1. Numerical Stability: Inputs may be large (e.g., 10,000). You must use the
-       standard max-subtraction trick for softmax.
+    1. Numerical Stability: Inputs may be large (e.g., 10,000). You must handle potential 
+       overflows in the softmax calculation.
        
-    2. Seed Scaling: The hardware RNG requires an integer. To preserve the entropy 
-       of the float seed, you MUST multiply 'seed' by 10,000.0 before casting to int.
-       Example: seed=1.5 -> use 15000.
+    2. Seed Sensitivity: The seed is provided as a float. You must ensure that the 
+       generated dropout mask changes even for small increments in the seed value 
+       (e.g., changes of 0.0001). Simply casting to int is insufficient.
        
-    3. Memory Layout: Do not assume the input is contiguous. Use x.stride() correctly.
+    3. Memory Layout: Do not assume the input is contiguous. You must handle the 
+       strides correctly.
     """
     raise NotImplementedError("Triton kernel not implemented")
