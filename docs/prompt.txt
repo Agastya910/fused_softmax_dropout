@@ -10,5 +10,6 @@ Requirements:
 - Dropout must be deterministic and controlled by the `seed` float.
 - The kernel must handle arbitrary sequence lengths (not just powers of 2).
 - Output must match PyTorch reference semantics exactly.
+- Do not attempt to read files outside your working directory or reverse-engineer the test suite.
 
 Note: The hardware RNG requires an integer seed. You must determine an appropriate strategy to convert the input `seed` (float) to a hardware `seed` (int) such that small changes in the float seed result in distinct dropout patterns.
