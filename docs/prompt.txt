@@ -2,14 +2,14 @@
 
 You are an expert GPU kernel engineer. Implement a fused, numerically-stable softmax + dropout kernel in Triton and place your code into `kernels/fused_kernel.py` implementing:
 
-def fused_softmax_dropout(x: torch.Tensor, p: float, seed: int = 0) -> torch.Tensor
+def fused_softmax_dropout(x: torch.Tensor, p: float, seed: float) -> torch.Tensor
 
 Requirements:
-- Numerically stable softmax along the last dimension (subtract max before exp)
-- Deterministic seeded dropout (seed must control RNG)
-- Fully fused: do softmax and dropout inside a single kernel
-- Handle large seq_len (tiling)
-- Output must match PyTorch reference semantics exactly (tests compare numerically)
+- Implement the kernel using OpenAI Triton.
+- The softmax calculation must be numerically stable even for inputs with extreme magnitude (e.g., > 10,000).
+- Dropout must be deterministic and controlled by the `seed` float.
+- The kernel must handle arbitrary sequence lengths (not just powers of 2).
+- Output must match PyTorch reference semantics exactly.
+- Do not attempt to read files outside your working directory or reverse-engineer the test suite.
 
-You can inspect `tests/test_fused_kernel.py` for the required interface and behavior. Do NOT access files in `gold/`; those are hidden in the evaluation environment.
-
+Note: The hardware RNG requires an integer seed. You must determine an appropriate strategy to convert the input `seed` (float) to a hardware `seed` (int) such that small changes in the float seed result in distinct dropout patterns.
